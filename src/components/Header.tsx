@@ -1,13 +1,29 @@
+const searchIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="bi bi-search"
+    viewBox="0 0 16 16"
+  >
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+  </svg>
+);
+
 const Header = () => {
   return (
-    <section className="shadow z-30 px-3 h-[4rem] items-center flex justify-between bg-white border-b-1 border-solid border-gray-300">
+    <section className="shadow z-30 px-3 min-h-[4rem] items-center flex justify-between bg-white border-b-1 border-solid border-gray-300">
       <h1 className="text-lg font-semibold">All Notes</h1>
       <div className="flex gap-3">
-        <input
-          type="text"
-          placeholder="Search notes by titles, tags and content..."
-          className="px-3 py-1 bg-white rounded-md text-sm w-[20vw] border-1"
-        />
+        <div className="flex items-center border-1 px-3 py-1 bg-white rounded-md w-[20vw]">
+          <span className="mr-2">{searchIcon}</span>
+          <input
+            type="text"
+            placeholder="Search notes by titles, tags, and content..."
+            className="bg-transparent text-sm w-full border-none focus:outline-none"
+          />
+        </div>
         <div className="flex items-center justify-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
