@@ -1,11 +1,11 @@
 import { ReactNode } from "react";
 import SideBar from "../components/SideBar";
 
-interface DesktopLayoutProps {
+export interface ChildrenPropType {
   children: ReactNode;
 }
 
-const DesktopLayout: React.FC<DesktopLayoutProps> = ({ children }) => {
+const DesktopLayout: React.FC<ChildrenPropType> = ({ children }) => {
   return (
     <section className="flex min-h-screen">
       <SideBar />

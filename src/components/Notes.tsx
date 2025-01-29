@@ -10,7 +10,7 @@ const TagOnPreview = ({ tagName }: { tagName: string }) => {
 
 const NotePreview = ({ noteDetails }: { noteDetails: noteType }) => {
   return (
-    <div className="border-b-1 border-solid border-gray-300 pb-3">
+    <div className="p-3 rounded-2xl hover:bg-blue-100 cursor-pointer">
       <span className="text-[0.6rem] text-gray-600">
         {noteDetails.dateTime.toLocaleDateString("en-US", {
           weekday: "long",

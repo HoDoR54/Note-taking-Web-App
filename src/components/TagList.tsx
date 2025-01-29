@@ -1,4 +1,17 @@
-import Tag from "./Tag";
+import { svgIcons } from "../Data/SVGs";
+
+interface TagProps {
+  value: string;
+}
+
+const Tag: React.FC<TagProps> = ({ value }) => {
+  return (
+    <li className="w-full rounded-r-full hover:bg-blue-100 pr-3 py-2 pl-5 cursor-pointer active:brightness-90 hover:text-black">
+      <span>{svgIcons.tagSvg}</span>
+      {value}
+    </li>
+  );
+};
 
 const Tags = ["Typescript", "Database", ".Net", "React"];
 
