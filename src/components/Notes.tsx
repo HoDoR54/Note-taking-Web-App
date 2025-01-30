@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { notes, noteType } from "../Data/notes";
+import { FilterContext } from "../Contexts/FilterContext";
 
 // Component Responsibility: to provide reusable tag UI
 
 const TagOnPreview = ({ tagName }: { tagName: string }) => {
   return (
-    <li className="bg-white rounded-full cursor-pointer border-blue-200 border-2 inline-block w-max py-1 px-2 hover:bg-gray-200 text-[0.8rem]">
+    <li className="bg-white rounded-full border-blue-200 border-2 inline-block w-max py-1 px-2 text-[0.8rem]">
       {tagName}
     </li>
   );
@@ -49,9 +50,35 @@ interface NotesProps {
 }
 
 const Notes: React.FC<NotesProps> = ({ setCurrentNote }) => {
+  const context = useContext(FilterContext);
+
+  if (!context) {
+    throw new Error("Filter switch must be used within a Provider");
+  }
+
+  const { currentFilter } = context;
+  let filteredNoteList: noteType[] = [];
+
+  switch (currentFilter.type) {
+    case "status":
+      if (currentFilter.name === "all notes") {
+        filteredNoteList = notes;
+      } else if (currentFilter.name === "archived notes") {
+        filteredNoteList = notes.filter((note) => note.status === "archived");
+      } else if (currentFilter.name === "drafts") {
+        filteredNoteList = notes.filter((note) => note.status === "draft");
+      }
+      break;
+    case "tag":
+      filteredNoteList = notes.filter((note) =>
+        note.tags.toString().toLowerCase().includes(currentFilter.name)
+      );
+      break;
+  }
+
   return (
     <div className="flex flex-col-reverse gap-3 p-3">
-      {notes.map((note, index) => (
+      {filteredNoteList.map((note, index) => (
         <NotePreview
           setCurrentNote={setCurrentNote}
           noteDetails={note}

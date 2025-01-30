@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import SideBar from "../components/SideBar";
+import { FilterContextProvider } from "../Contexts/FilterContext";
 
 // Component Responsibility: to provide a default layout for desktop screenn
 
@@ -9,10 +10,12 @@ export interface ChildrenPropType {
 
 const DesktopLayout: React.FC<ChildrenPropType> = ({ children }) => {
   return (
-    <section className="flex min-h-screen">
-      <SideBar />
-      {children}
-    </section>
+    <FilterContextProvider>
+      <section className="flex min-h-screen">
+        <SideBar />
+        {children}
+      </section>
+    </FilterContextProvider>
   );
 };
 

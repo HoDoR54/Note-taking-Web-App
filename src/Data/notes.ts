@@ -3,37 +3,43 @@ export type noteType = {
   note: string;
   dateTime: Date;
   tags: string[];
+  status: "active" | "archived" | "draft";
 };
 
 export const notes: noteType[] = [
   {
-    title: "React Learning",
-    note: "Started learning React today. Hooks seem cool!",
+    title: "React Components",
+    note: "Built a simple React component with props and state.",
     dateTime: new Date("2025-01-25T10:15:00"),
-    tags: ["react", "frontend"],
+    tags: ["react", "component"],
+    status: "active",
   },
   {
-    title: "Game Deadline",
-    note: "Need to finish that JavaScript guessing game tomorrow.",
+    title: "State Management",
+    note: "Experimenting with useState and useReducer in React.",
     dateTime: new Date("2025-01-26T21:30:00"),
-    tags: ["javascript", "game"],
+    tags: ["react", "hooks"],
+    status: "draft",
   },
   {
-    title: "API Basics",
-    note: "Watched a video on backend APIs. Seems complex but exciting.",
+    title: "API Integration",
+    note: "Fetched data from an API and displayed it in a React app.",
     dateTime: new Date("2025-01-24T14:45:00"),
-    tags: ["backend", "API"],
+    tags: ["react"],
+    status: "active",
   },
   {
-    title: "Tailwind Exploration",
-    note: "Figured out how to style with Tailwind CSS.",
+    title: "Tailwind Styling",
+    note: "Styled my React components using Tailwind CSS.",
     dateTime: new Date("2025-01-22T18:20:00"),
-    tags: ["css", "tailwind"],
+    tags: ["react", "component"],
+    status: "archived",
   },
   {
-    title: "SQL Practice",
-    note: "Need to practice SQL joins for the assignment.",
+    title: "Form Handling",
+    note: "Implemented controlled components for forms in React.",
     dateTime: new Date("2025-01-27T08:00:00"),
-    tags: ["SQL", "database"],
+    tags: ["react", "component"],
+    status: "archived",
   },
 ];

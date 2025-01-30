@@ -18,6 +18,7 @@ const SideBarFilter = () => {
           svg={filter.svg}
           text={filter.name}
           border={false}
+          newFilter={{ type: "status", name: filter.name.toLowerCase() }}
         />
       ))}
     </ul>

@@ -17,7 +17,7 @@ const DesktopMain = () => {
   return (
     <section className="h-screen w-full flex flex-col">
       <Header />
-      <section className="z-20 grid grid-cols-12 px-1 max-h-[calc(100vh-4rem)] w-full">
+      <section className="z-20 grid grid-cols-12 px-1 h-[calc(100vh-4rem)] w-full">
         <PreviewSec setCurrentNote={setCurrentNote} />
         <NoteDisplaySec currentNoteDetails={currentNote} />
         <ControlsSec />

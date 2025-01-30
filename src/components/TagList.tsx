@@ -24,6 +24,7 @@ const TagList = () => {
             text={tag}
             svg={svgIcons.tagSvg}
             border={false}
+            newFilter={{ type: "tag", name: tag }}
           />
         ))}
       </ul>
