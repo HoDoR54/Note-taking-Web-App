@@ -1,5 +1,5 @@
 import { svgIcons } from "../Data/SVGs";
-import SideBarItem from "./SideBarItem";
+import { SideBarItem } from "./UI/SideBarItem";
 import { notes } from "../Data/notes";
 
 // Component Responsibility: to display all the tags included in the data

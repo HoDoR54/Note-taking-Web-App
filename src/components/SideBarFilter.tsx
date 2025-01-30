@@ -1,5 +1,5 @@
 import { svgIcons } from "../Data/SVGs";
-import SideBarItem from "./SideBarItem";
+import { SideBarItem } from "./UI/SideBarItem";
 
 // Component Responsibility: to pass filtering function to SideBarItem
 
