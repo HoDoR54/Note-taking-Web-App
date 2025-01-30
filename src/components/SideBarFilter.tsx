@@ -1,4 +1,5 @@
 import { svgIcons } from "../Data/SVGs";
+import SideBarItem from "./SideBarItem";
 
 const filters = [
   { svg: svgIcons.homeSvg, name: "All notes" },
@@ -9,11 +10,13 @@ const filters = [
 const SideBarFilter = () => {
   return (
     <ul className="border-b-1 border-solid border-gray-300 py-3">
-      {filters.map((filter) => (
-        <li className="w-full rounded-r-full hover:bg-blue-100 pr-3 py-2 pl-5 cursor-pointer active:brightness-90 hover:text-black">
-          {filter.svg}
-          {filter.name}
-        </li>
+      {filters.map((filter, index) => (
+        <SideBarItem
+          key={index}
+          svg={filter.svg}
+          text={filter.name}
+          border={false}
+        />
       ))}
     </ul>
   );
