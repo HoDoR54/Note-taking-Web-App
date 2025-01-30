@@ -1,6 +1,8 @@
 import { svgIcons } from "../Data/SVGs";
 import SideBarItem from "./SideBarItem";
 
+// Component Responsibility: to pass filtering function to SideBarItem
+
 const filters = [
   { svg: svgIcons.homeSvg, name: "All notes" },
   { svg: svgIcons.archivedNotesSvg, name: "Archived notes" },

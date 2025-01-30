@@ -1,4 +1,7 @@
+import React from "react";
 import { notes, noteType } from "../Data/notes";
+
+// Component Responsibility: to provide reusable tag UI
 
 const TagOnPreview = ({ tagName }: { tagName: string }) => {
   return (
@@ -8,34 +11,52 @@ const TagOnPreview = ({ tagName }: { tagName: string }) => {
   );
 };
 
-const NotePreview = ({ noteDetails }: { noteDetails: noteType }) => {
+// Component Responsibility: to render a brief preview box for each note in the database
+
+interface NotePreviewProps {
+  noteDetails: noteType;
+  setCurrentNote: (newCurrentNote: noteType) => void;
+}
+
+const NotePreview: React.FC<NotePreviewProps> = ({
+  noteDetails,
+  setCurrentNote,
+}) => {
   return (
-    <div className="p-3 rounded-2xl hover:bg-blue-100 cursor-pointer">
-      <span className="text-[0.6rem] text-gray-600">
-        {noteDetails.dateTime.toLocaleDateString("en-US", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}
+    <div
+      className="p-3 rounded-2xl hover:bg-blue-100 cursor-pointer"
+      onClick={() => {
+        setCurrentNote(noteDetails);
+      }}
+    >
+      <span className="text-[0.7rem] text-gray-600">
+        {noteDetails.dateTime.toDateString()}
       </span>
       <h1 className="font-medium">{noteDetails.title}</h1>
 
       <p className="text-sm text-gray-500">{noteDetails.note}</p>
       <ul className="flex gap-2 mt-3">
-        {noteDetails.tags.map((tag) => (
-          <TagOnPreview tagName={tag} />
+        {noteDetails.tags.map((tag, index) => (
+          <TagOnPreview key={index} tagName={tag} />
         ))}
       </ul>
     </div>
   );
 };
 
-const Notes = () => {
+interface NotesProps {
+  setCurrentNote: (newCurrentNote: noteType) => void;
+}
+
+const Notes: React.FC<NotesProps> = ({ setCurrentNote }) => {
   return (
     <div className="flex flex-col-reverse gap-3 p-3">
       {notes.map((note, index) => (
-        <NotePreview noteDetails={note} key={index} />
+        <NotePreview
+          setCurrentNote={setCurrentNote}
+          noteDetails={note}
+          key={index}
+        />
       ))}
     </div>
   );

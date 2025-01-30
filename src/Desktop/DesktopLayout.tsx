@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import SideBar from "../components/SideBar";
 
+// Component Responsibility: to provide a default layout for desktop screenn
+
 export interface ChildrenPropType {
   children: ReactNode;
 }

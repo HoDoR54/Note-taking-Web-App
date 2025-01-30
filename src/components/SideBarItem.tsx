@@ -1,5 +1,7 @@
 import React, { ReactElement } from "react";
 
+// Component Responsibility: to perform certain functionalities depending on the func props
+
 interface SideBarItemProps {
   svg: ReactElement;
   text: string;

@@ -1,5 +1,7 @@
 import React from "react";
 
+// Component Responsibility: to provide a reusable button
+
 interface BtnProps {
   value: string;
   type: "primary" | "secondary";

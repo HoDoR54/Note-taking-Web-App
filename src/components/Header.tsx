@@ -1,5 +1,7 @@
 import { svgIcons } from "../Data/SVGs";
 
+// Component Responsibility: to render header components
+
 const Header = () => {
   return (
     <section className="shadow z-30 px-3 min-h-[4rem] items-center flex justify-between bg-white border-b border-solid border-gray-300">

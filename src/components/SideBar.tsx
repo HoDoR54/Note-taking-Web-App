@@ -17,9 +17,11 @@ const Logo = () => {
   );
 };
 
+// Component Responsibility: to render the sidebar components
+
 const SideBar = () => {
   return (
-    <section className=" shadow-md z-50 flex flex-col w-[20vw] border-r border-gray-300 p-3 h-screen overflow-scroll scrollbar-hide">
+    <section className=" shadow-md z-50 flex flex-col w-[20vw] border-r border-gray-300 p-3 pt-0 h-screen overflow-scroll scrollbar-hide">
       <Logo />
       <SideBarFilter />
       <TagList />
