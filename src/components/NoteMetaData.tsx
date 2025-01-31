@@ -11,14 +11,7 @@ const NoteMetaData: React.FC<NoteMetaDataProps> = ({ currentNote }) => {
       <div className="flex flex-col gap-1 text-gray-700 text-sm w-max">
         <div className="grid grid-cols-3">
           <h2 className="col-span-2">tags:</h2>
-          <p>
-            {currentNote.tags.map((tag, index) => (
-              <span key={index}>
-                {tag}
-                {currentNote.tags.length - index !== 1 && ", "}
-              </span>
-            ))}
-          </p>
+          <p>{currentNote.tags.join(", ")}</p>
         </div>
         <div className="grid grid-cols-3">
           <h2 className="col-span-2">last edited:</h2>
