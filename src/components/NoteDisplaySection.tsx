@@ -38,15 +38,15 @@ const NoteDisplaySec: React.FC<NoteDisplaySecProps> = ({ currentNote }) => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-center flex-col gap-5 col-span-7">
+        <div className="flex items-center justify-center flex-col gap-5 col-span-9">
           <h1 className="text-2xl font-bold text-gray-400">Welcome to Note</h1>
           <div className="flex gap-3">
-            <div className="px-3 py1 bg-gray-400 rounded-lg text-white text-[0.7rem] flex items-center justify-center">
-              Ctrl + N
-            </div>
             <span className="text-gray-400 text-[]0.7rem">
-              to create a new file
+              create a new note
             </span>
+            <div className="px-3 py1 bg-gray-400 rounded-lg text-white text-[0.7rem] flex items-center justify-center">
+              Ctrl + Alt + N
+            </div>
           </div>
         </div>
       )}

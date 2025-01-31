@@ -1,9 +1,18 @@
-import { useState, useEffect } from "react";
-import DesktopView from "./Desktop/DesktopView";
+import { useState, useEffect, useContext } from "react";
 import MobileView from "./Mobile/MobileView";
+import { useHotkeys } from "react-hotkeys-hook";
+import DesktopMain from "./Desktop/DesktopMain";
+import { NewNoteContext } from "./Contexts/NewFormContext";
 
 const App = () => {
   const [view, setView] = useState("desktop");
+  const newNoteContext = useContext(NewNoteContext);
+
+  if (!newNoteContext) {
+    throw new Error("the app must be nested within a context provider!");
+  }
+
+  const { toggleForm } = newNoteContext;
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,9 +31,14 @@ const App = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useHotkeys("ctrl+alt+n", (event) => {
+    event.preventDefault();
+    toggleForm(true);
+  });
+
   return (
     <section>
-      {view === "desktop" && <DesktopView />}
+      {view === "desktop" && <DesktopMain />}
       {view === "mobile" && <MobileView />}
     </section>
   );
