@@ -6,11 +6,7 @@ import { NewNoteContext } from "../Contexts/NewFormContext";
 
 // Component Responsibility: to render preview section and pass functions
 
-interface PreviewSecProps {
-  setCurrentNote: (newCurrentNote: noteType) => void | null;
-}
-
-export const PreviewSec: React.FC<PreviewSecProps> = ({ setCurrentNote }) => {
+export const PreviewSec = () => {
   const context = useContext(NewNoteContext);
 
   if (!context) {
@@ -28,7 +24,7 @@ export const PreviewSec: React.FC<PreviewSecProps> = ({ setCurrentNote }) => {
           handleClick={() => toggleForm(true)}
         />
       </div>
-      <Notes setCurrentNote={setCurrentNote} />
+      <Notes />
     </div>
   );
 };

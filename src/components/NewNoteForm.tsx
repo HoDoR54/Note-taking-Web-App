@@ -4,6 +4,7 @@ import { NotesContext } from "../Contexts/NotesContext";
 import { Btn } from "./UI/Button";
 import { NewNoteContext } from "../Contexts/NewFormContext";
 import { svgIcons } from "../Data/SVGs";
+import { CurrentNoteContext } from "../Contexts/CurrentNoteContext";
 
 const NewNoteForm = () => {
   const [tagList, setTagList] = useState<string[]>([]);
@@ -13,6 +14,7 @@ const NewNoteForm = () => {
 
   const context = useContext(NewNoteContext);
   const notesContext = useContext(NotesContext);
+  const currentNoteContext = useContext(CurrentNoteContext);
 
   if (!notesContext) {
     throw new Error("the app must be nested within a notes provider.");
@@ -22,8 +24,15 @@ const NewNoteForm = () => {
     throw new Error("NewNoteForm must be used within a NewNoteContextProvider");
   }
 
+  if (!currentNoteContext) {
+    throw new Error(
+      "the app must be nested within the current note context provider."
+    );
+  }
+
   const { modifyNotes } = notesContext;
   const { toggleForm } = context;
+  const { setCurrentNote } = currentNoteContext;
 
   const closeForm = () => {
     toggleForm(false);
@@ -81,6 +90,7 @@ const NewNoteForm = () => {
       };
       modifyNotes.addNote(newNote);
       closeForm();
+      setCurrentNote(newNote);
     }
   };
 

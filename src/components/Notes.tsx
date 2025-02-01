@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { noteType } from "../Data/notes";
 import { FilterContext } from "../Contexts/FilterContext";
 import { NotesContext } from "../Contexts/NotesContext";
+import { CurrentNoteContext } from "../Contexts/CurrentNoteContext";
 
 // Component Responsibility: to provide reusable tag UI
 
@@ -17,13 +18,17 @@ const TagOnPreview = ({ tagName }: { tagName: string }) => {
 
 interface NotePreviewProps {
   noteDetails: noteType;
-  setCurrentNote: (newCurrentNote: noteType) => void;
 }
 
-const NotePreview: React.FC<NotePreviewProps> = ({
-  noteDetails,
-  setCurrentNote,
-}) => {
+const NotePreview: React.FC<NotePreviewProps> = ({ noteDetails }) => {
+  const currentNoteContext = useContext(CurrentNoteContext);
+
+  if (!currentNoteContext) {
+    throw new Error("the app must be nested within a provider!");
+  }
+
+  const { setCurrentNote } = currentNoteContext;
+
   return (
     <div
       className="p-3 rounded-md hover:bg-blue-100 cursor-pointer"
@@ -49,11 +54,7 @@ const NotePreview: React.FC<NotePreviewProps> = ({
   );
 };
 
-interface NotesProps {
-  setCurrentNote: (newCurrentNote: noteType) => void;
-}
-
-const Notes: React.FC<NotesProps> = ({ setCurrentNote }) => {
+const Notes = () => {
   const context = useContext(FilterContext);
   const notesContext = useContext(NotesContext);
 
@@ -66,7 +67,6 @@ const Notes: React.FC<NotesProps> = ({ setCurrentNote }) => {
   }
 
   const { notes } = notesContext;
-
   const { currentFilter } = context;
   let filteredNoteList: noteType[] = [];
 
@@ -90,11 +90,7 @@ const Notes: React.FC<NotesProps> = ({ setCurrentNote }) => {
   return (
     <div className="flex flex-col-reverse gap-3 p-3">
       {filteredNoteList.map((note, index) => (
-        <NotePreview
-          setCurrentNote={setCurrentNote}
-          noteDetails={note}
-          key={index}
-        />
+        <NotePreview noteDetails={note} key={index} />
       ))}
     </div>
   );
