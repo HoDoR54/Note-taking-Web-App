@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 export type filterType = {
   type: "status" | "tag";
@@ -30,4 +30,16 @@ const FilterContextProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export { FilterContext, FilterContextProvider };
+const useFilterContext = () => {
+  const context = useContext(FilterContext);
+
+  if (!context) {
+    throw new Error(
+      "useFilterContext must be used within a FilterContextProvider."
+    );
+  }
+
+  return context;
+};
+
+export { FilterContextProvider, useFilterContext };

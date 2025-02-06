@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { noteType } from "../Data/notes";
-import { FilterContext } from "../Contexts/FilterContext";
-import { NotesContext } from "../Contexts/NotesContext";
-import { CurrentNoteContext } from "../Contexts/CurrentNoteContext";
+import { useFilterContext } from "../Contexts/FilterContext";
+import { useNotes } from "../Contexts/NotesContext";
+import { useCurrentNote } from "../Contexts/CurrentNoteContext";
 
 // Component Responsibility: to provide reusable tag UI
 
@@ -21,13 +21,7 @@ interface NotePreviewProps {
 }
 
 const NotePreview: React.FC<NotePreviewProps> = ({ noteDetails }) => {
-  const currentNoteContext = useContext(CurrentNoteContext);
-
-  if (!currentNoteContext) {
-    throw new Error("the app must be nested within a provider!");
-  }
-
-  const { setCurrentNote } = currentNoteContext;
+  const { setCurrentNote } = useCurrentNote();
 
   return (
     <div
@@ -55,19 +49,8 @@ const NotePreview: React.FC<NotePreviewProps> = ({ noteDetails }) => {
 };
 
 const Notes = () => {
-  const context = useContext(FilterContext);
-  const notesContext = useContext(NotesContext);
-
-  if (!notesContext) {
-    throw new Error("the app should be nested within a notes provider");
-  }
-
-  if (!context) {
-    throw new Error("Filter switch must be used within a Provider");
-  }
-
-  const { notes } = notesContext;
-  const { currentFilter } = context;
+  const { notes } = useNotes();
+  const { currentFilter } = useFilterContext();
   let filteredNoteList: noteType[] = [];
 
   switch (currentFilter.type) {

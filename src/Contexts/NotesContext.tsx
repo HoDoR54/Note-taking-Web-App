@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { noteType } from "../Data/notes";
 import { notes } from "../Data/notes";
 
@@ -36,4 +36,14 @@ const NotesContextProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export { NotesContext, NotesContextProvider };
+const useNotes = () => {
+  const context = useContext(NotesContext);
+
+  if (!context) {
+    throw new Error("useNotes must be used within a NotesContextProvider.");
+  }
+
+  return context;
+};
+
+export { useNotes, NotesContextProvider };

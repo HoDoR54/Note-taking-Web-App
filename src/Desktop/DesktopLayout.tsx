@@ -1,24 +1,16 @@
-import { ReactNode, useContext } from "react";
-import { NewNoteContext } from "../Contexts/NewFormContext";
+import { ReactNode } from "react";
 import SideBar from "../components/SideBar";
 import { FilterContextProvider } from "../Contexts/FilterContext";
 import NewNoteForm from "../components/NewNoteForm";
 import Overlay from "../components/UI/Overlay";
+import { useNewNoteConext } from "../Contexts/NewFormContext";
 
 export interface ChildrenPropType {
   children: ReactNode;
 }
 
 const DesktopLayout: React.FC<ChildrenPropType> = ({ children }) => {
-  const context = useContext(NewNoteContext);
-
-  if (!context) {
-    throw new Error(
-      "DesktopLayout must be used within a NewNoteContextProvider"
-    );
-  }
-
-  const { isCreatingNewNote } = context;
+  const { isCreatingNewNote } = useNewNoteConext();
 
   return (
     <FilterContextProvider>

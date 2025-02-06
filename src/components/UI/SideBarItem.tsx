@@ -1,5 +1,5 @@
-import React, { ReactElement, useContext } from "react";
-import { FilterContext } from "../../Contexts/FilterContext";
+import React, { ReactElement } from "react";
+import { useFilterContext } from "../../Contexts/FilterContext";
 import { filterType } from "../../Contexts/FilterContext";
 
 // Component Responsibility: to perform certain functionalities depending on the func props
@@ -17,13 +17,7 @@ export const SideBarItem: React.FC<SideBarItemProps> = ({
   border,
   newFilter,
 }) => {
-  const context = useContext(FilterContext);
-
-  if (!context) {
-    throw new Error("Filter switch must be used within a Provider");
-  }
-
-  const { switchFilter } = context;
+  const { switchFilter } = useFilterContext();
 
   return (
     <li

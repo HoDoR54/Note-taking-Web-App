@@ -1,20 +1,14 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Btn } from "./UI/Button";
 import TextArea from "./TextArea";
 import NoteMetaData from "./NoteMetaData";
-import { CurrentNoteContext } from "../Contexts/CurrentNoteContext";
+import { useCurrentNote } from "../Contexts/CurrentNoteContext";
 
 // Component Responsibility: to render the note taking section components
 
 const NoteDisplaySec = () => {
   const [textAreaValue, setTextAreaValue] = useState<any>();
-  const currentNoteContext = useContext(CurrentNoteContext);
-
-  if (!currentNoteContext) {
-    throw new Error("the app must be nested within a provider.");
-  }
-
-  const { currentNote } = currentNoteContext;
+  const { currentNote } = useCurrentNote();
 
   useEffect(() => {
     setTextAreaValue(currentNote?.note);

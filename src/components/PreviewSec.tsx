@@ -1,19 +1,11 @@
-import { noteType } from "../Data/notes";
 import { Btn } from "./UI/Button";
 import Notes from "./Notes";
-import { useContext } from "react";
-import { NewNoteContext } from "../Contexts/NewFormContext";
+import { useNewNoteConext } from "../Contexts/NewFormContext";
 
 // Component Responsibility: to render preview section and pass functions
 
 export const PreviewSec = () => {
-  const context = useContext(NewNoteContext);
-
-  if (!context) {
-    throw new Error("PreviewSec must be used within a NewNoteContextProvider");
-  }
-
-  const { toggleForm } = context;
+  const { toggleForm } = useNewNoteConext();
 
   return (
     <div className="shadow-md col-span-3 overflow-y-scroll border-r border-gray-300 border-solid scrollbar-hide px-3">

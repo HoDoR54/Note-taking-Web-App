@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { noteType } from "../Data/notes";
-import { NotesContext } from "../Contexts/NotesContext";
 import { Btn } from "./UI/Button";
-import { NewNoteContext } from "../Contexts/NewFormContext";
+import { useNewNoteConext } from "../Contexts/NewFormContext";
 import { svgIcons } from "../Data/SVGs";
-import { CurrentNoteContext } from "../Contexts/CurrentNoteContext";
+import { useCurrentNote } from "../Contexts/CurrentNoteContext";
+import { useNotes } from "../Contexts/NotesContext";
 
 const NewNoteForm = () => {
   const [tagList, setTagList] = useState<string[]>([]);
@@ -12,27 +12,9 @@ const NewNoteForm = () => {
   const [titleInput, setTitleInput] = useState<string>("");
   const [errors, setErrors] = useState<{ title?: string; tags?: string }>({}); // for form validation
 
-  const context = useContext(NewNoteContext);
-  const notesContext = useContext(NotesContext);
-  const currentNoteContext = useContext(CurrentNoteContext);
-
-  if (!notesContext) {
-    throw new Error("the app must be nested within a notes provider.");
-  }
-
-  if (!context) {
-    throw new Error("NewNoteForm must be used within a NewNoteContextProvider");
-  }
-
-  if (!currentNoteContext) {
-    throw new Error(
-      "the app must be nested within the current note context provider."
-    );
-  }
-
-  const { modifyNotes } = notesContext;
-  const { toggleForm } = context;
-  const { setCurrentNote } = currentNoteContext;
+  const { modifyNotes } = useNotes();
+  const { toggleForm } = useNewNoteConext();
+  const { setCurrentNote } = useCurrentNote();
 
   const closeForm = () => {
     toggleForm(false);
@@ -107,6 +89,7 @@ const NewNoteForm = () => {
         value={titleInput}
         onChange={(e) => setTitleInput(e.target.value)}
         error={errors.title}
+        id="ts-title-input"
       />
 
       <div>
@@ -153,6 +136,7 @@ interface FormInputProps {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   error?: string;
+  id?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -162,6 +146,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   onKeyDown,
   error,
+  id,
 }) => {
   return (
     <label className="py-3 block">
@@ -175,6 +160,7 @@ const FormInput: React.FC<FormInputProps> = ({
         value={value}
         onChange={onChange}
         onKeyDown={onKeyDown}
+        id={id}
         required
       />
       {error && <span className="text-red-500 font-semibold">{error}</span>}

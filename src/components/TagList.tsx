@@ -1,16 +1,10 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import { svgIcons } from "../Data/SVGs";
 import { SideBarItem } from "./UI/SideBarItem";
-import { NotesContext } from "../Contexts/NotesContext";
+import { useNotes } from "../Contexts/NotesContext";
 
 const TagList = () => {
-  const notesContext = useContext(NotesContext);
-
-  if (!notesContext) {
-    throw new Error("The app should be nested within a provider");
-  }
-
-  const { notes } = notesContext;
+  const { notes } = useNotes();
 
   const tags = useMemo(() => {
     const uniqueTags: string[] = [];

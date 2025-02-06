@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 type NewNoteContextType = {
   isCreatingNewNote: boolean;
@@ -21,4 +21,16 @@ const NewNoteContextProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export { NewNoteContext, NewNoteContextProvider };
+const useNewNoteConext = () => {
+  const context = useContext(NewNoteContext);
+
+  if (!context) {
+    throw new Error(
+      "useNewNoteContext must be used within a NewNoteContextProvider."
+    );
+  }
+
+  return context;
+};
+
+export { useNewNoteConext, NewNoteContextProvider };
