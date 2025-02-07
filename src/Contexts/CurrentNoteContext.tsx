@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useState, useContext } from "react";
+import {
+  createContext,
+  ReactNode,
+  useState,
+  useContext,
+  useEffect,
+} from "react";
 import { noteType } from "../Data/notes";
 
 type CurrentNoteContextType = {
@@ -9,7 +15,22 @@ type CurrentNoteContextType = {
 const CurrentNoteContext = createContext<CurrentNoteContextType | null>(null);
 
 const CurrentNoteContextProvider = ({ children }: { children: ReactNode }) => {
-  const [currentNote, setCurrentNote] = useState<noteType>();
+  const [currentNote, setCurrentNote] = useState<noteType>(() => {
+    const current = localStorage.getItem("current-note");
+    if (current) {
+      const parsed = JSON.parse(current);
+      return {
+        ...parsed,
+        dateTime: new Date(parsed.dateTime),
+        updatedAt: new Date(parsed.updatedAt),
+      };
+    }
+    return undefined;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("current-note", JSON.stringify(currentNote));
+  }, [currentNote]);
 
   return (
     <CurrentNoteContext.Provider value={{ currentNote, setCurrentNote }}>

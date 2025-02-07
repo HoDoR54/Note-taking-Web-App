@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { noteType } from "../Data/notes";
 import { notes } from "../Data/notes";
 
@@ -15,8 +21,19 @@ const NotesContext = createContext<NotesContextType | null>(null);
 
 const NotesContextProvider = ({ children }: { children: ReactNode }) => {
   const [noteList, setNoteList] = useState<noteType[]>(() => {
-    const notelist = localStorage.getItem("notelist");
-    return notelist ? JSON.parse(notelist) : notes;
+    try {
+      const savedNotes = localStorage.getItem("notes");
+      return savedNotes
+        ? JSON.parse(savedNotes).map((note: noteType) => ({
+            ...note,
+            dateTime: new Date(note.dateTime),
+            updatedAt: note.updatedAt ? new Date(note.updatedAt) : undefined,
+          }))
+        : notes;
+    } catch (error) {
+      console.error("Error parsing localStorage:", error);
+      return notes;
+    }
   });
 
   const modifyNotes = {
@@ -35,6 +52,10 @@ const NotesContextProvider = ({ children }: { children: ReactNode }) => {
       setNoteList(newNoteList);
     },
   };
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(noteList));
+  }, [noteList]);
 
   return (
     <NotesContext.Provider value={{ notes: noteList, modifyNotes }}>

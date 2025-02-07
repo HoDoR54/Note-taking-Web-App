@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { notes, noteType } from "../Data/notes";
+import { noteType } from "../Data/notes";
 import { Btn } from "./UI/Button";
 import { useNewNoteConext } from "../Contexts/NewFormContext";
 import { svgIcons } from "../Data/SVGs";
@@ -65,7 +65,7 @@ const NewNoteForm = () => {
     const isValid = validateInput();
     if (isValid) {
       const newNote: noteType = {
-        id: notes.length + 1,
+        id: Date.now(),
         title: titleInput,
         tags: tagList,
         note: "",
@@ -73,6 +73,7 @@ const NewNoteForm = () => {
         dateTime: new Date(),
         updatedAt: undefined,
       };
+
       modifyNotes.addNote(newNote);
       closeForm();
       setCurrentNote(newNote);
@@ -93,6 +94,7 @@ const NewNoteForm = () => {
         onChange={(e) => setTitleInput(e.target.value)}
         error={errors.title}
         id="ts-title-input"
+        isRequired={true}
       />
 
       <div>
@@ -105,6 +107,7 @@ const NewNoteForm = () => {
             if (e.key === "Enter") handleTagSubmit(e);
           }}
           error={errors.tags}
+          isRequired={false}
         />
       </div>
 
@@ -120,14 +123,7 @@ const NewNoteForm = () => {
       </div>
 
       <div className="flex gap-3 w-full justify-end">
-        <Btn
-          value="Create"
-          type="primary"
-          handleClick={() => {
-            handleCreate;
-          }}
-          action="submit"
-        />
+        <Btn value="Create" type="primary" action="submit" />
         <Btn value="Cancel" type="secondary" handleClick={closeForm} />
       </div>
     </form>
@@ -142,6 +138,7 @@ interface FormInputProps {
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   error?: string;
   id?: string;
+  isRequired: boolean;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -152,6 +149,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onKeyDown,
   error,
   id,
+  isRequired,
 }) => {
   return (
     <label className="py-3 block">
@@ -166,7 +164,7 @@ const FormInput: React.FC<FormInputProps> = ({
         onChange={onChange}
         onKeyDown={onKeyDown}
         id={id}
-        required
+        required={isRequired}
       />
       {error && <span className="text-red-500 font-semibold">{error}</span>}
     </label>
