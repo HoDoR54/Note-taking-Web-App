@@ -60,7 +60,8 @@ const NewNoteForm = () => {
     return isValid;
   };
 
-  const handleCreate = () => {
+  const handleCreate = (event: React.FormEvent) => {
+    event.preventDefault();
     const isValid = validateInput();
     if (isValid) {
       const newNote: noteType = {
@@ -70,6 +71,7 @@ const NewNoteForm = () => {
         note: "",
         status: "active",
         dateTime: new Date(),
+        updatedAt: undefined,
       };
       modifyNotes.addNote(newNote);
       closeForm();
@@ -121,7 +123,9 @@ const NewNoteForm = () => {
         <Btn
           value="Create"
           type="primary"
-          handleClick={handleCreate}
+          handleClick={() => {
+            handleCreate;
+          }}
           action="submit"
         />
         <Btn value="Cancel" type="secondary" handleClick={closeForm} />

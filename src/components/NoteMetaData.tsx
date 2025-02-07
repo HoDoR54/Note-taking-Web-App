@@ -15,7 +15,9 @@ const NoteMetaData: React.FC<NoteMetaDataProps> = ({ currentNote }) => {
         </div>
         <div className="grid grid-cols-3">
           <h2 className="col-span-2">last edited:</h2>
-          <p>some date</p>
+          <p>
+            {currentNote.updatedAt ? currentNote.updatedAt.toDateString() : "_"}
+          </p>
         </div>
         <div className="grid grid-cols-3">
           <h2 className="col-span-2">created:</h2>

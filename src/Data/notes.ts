@@ -3,6 +3,7 @@ export type noteType = {
   title: string;
   note: string | undefined;
   dateTime: Date;
+  updatedAt: Date | undefined;
   tags: string[];
   status: "active" | "archived" | "draft";
 };
@@ -15,6 +16,7 @@ export const notes: noteType[] = [
     dateTime: new Date("2025-01-25T07:30:00"),
     tags: ["exercise"],
     status: "active",
+    updatedAt: undefined,
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ export const notes: noteType[] = [
     dateTime: new Date("2025-01-26T18:45:00"),
     tags: ["cooking", "entertainment"],
     status: "draft",
+    updatedAt: undefined,
   },
   {
     id: 3,
@@ -31,6 +34,7 @@ export const notes: noteType[] = [
     dateTime: new Date("2025-01-24T10:00:00"),
     tags: ["travel", "exercise"],
     status: "active",
+    updatedAt: undefined,
   },
   {
     id: 4,
@@ -39,6 +43,7 @@ export const notes: noteType[] = [
     dateTime: new Date("2025-01-22T20:00:00"),
     tags: ["entertainment", "friends"],
     status: "archived",
+    updatedAt: undefined,
   },
   {
     id: 5,
@@ -47,5 +52,6 @@ export const notes: noteType[] = [
     dateTime: new Date("2025-01-27T09:00:00"),
     tags: ["reading", "entertainment"],
     status: "archived",
+    updatedAt: undefined,
   },
 ];

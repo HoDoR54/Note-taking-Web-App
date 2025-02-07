@@ -10,8 +10,8 @@ import { noteType } from "../Data/notes";
 
 const NoteDisplaySec = () => {
   const [textAreaValue, setTextAreaValue] = useState<string>();
-  const { currentNote } = useCurrentNote();
-  const { notes, modifyNotes } = useNotes();
+  const { currentNote, setCurrentNote } = useCurrentNote();
+  const { modifyNotes } = useNotes();
 
   useEffect(() => {
     setTextAreaValue(currentNote?.note);
@@ -26,10 +26,15 @@ const NoteDisplaySec = () => {
       const updatedCurrentNote: noteType = {
         ...currentNote,
         note: textAreaValue,
+        updatedAt: new Date(),
       };
       modifyNotes.updateNote(updatedCurrentNote);
-      console.log(notes.length);
+      setCurrentNote(updatedCurrentNote);
     }
+  };
+
+  const handleDiscard = () => {
+    setTextAreaValue(currentNote?.note);
   };
 
   return (
@@ -45,7 +50,7 @@ const NoteDisplaySec = () => {
           {/* Save and commit changes */}
           <div className="flex gap-2 justify-start p-3 border-t border-gray-300 border-solid">
             <Btn value="Save note" type="primary" handleClick={handleSave} />
-            <Btn value="Discard" type="secondary" />
+            <Btn value="Discard" type="secondary" handleClick={handleDiscard} />
           </div>
         </div>
       ) : (
