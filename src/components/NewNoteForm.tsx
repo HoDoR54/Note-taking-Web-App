@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { noteType } from "../Data/notes";
+import { notes, noteType } from "../Data/notes";
 import { Btn } from "./UI/Button";
 import { useNewNoteConext } from "../Contexts/NewFormContext";
 import { svgIcons } from "../Data/SVGs";
@@ -64,6 +64,7 @@ const NewNoteForm = () => {
     const isValid = validateInput();
     if (isValid) {
       const newNote: noteType = {
+        id: notes.length + 1,
         title: titleInput,
         tags: tagList,
         note: "",

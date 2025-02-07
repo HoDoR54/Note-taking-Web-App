@@ -20,7 +20,6 @@ const FilterContextProvider = ({ children }: { children: ReactNode }) => {
 
   const switchFilter = (newFilter: filterType) => {
     setCurrentFilter(newFilter);
-    console.log(newFilter);
   };
 
   return (

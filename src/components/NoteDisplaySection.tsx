@@ -3,12 +3,15 @@ import { Btn } from "./UI/Button";
 import TextArea from "./TextArea";
 import NoteMetaData from "./NoteMetaData";
 import { useCurrentNote } from "../Contexts/CurrentNoteContext";
+import { useNotes } from "../Contexts/NotesContext";
+import { noteType } from "../Data/notes";
 
 // Component Responsibility: to render the note taking section components
 
 const NoteDisplaySec = () => {
-  const [textAreaValue, setTextAreaValue] = useState<any>();
+  const [textAreaValue, setTextAreaValue] = useState<string>();
   const { currentNote } = useCurrentNote();
+  const { notes, modifyNotes } = useNotes();
 
   useEffect(() => {
     setTextAreaValue(currentNote?.note);
@@ -16,6 +19,17 @@ const NoteDisplaySec = () => {
 
   const handleInputChange = (value: any) => {
     setTextAreaValue(value);
+  };
+
+  const handleSave = () => {
+    if (currentNote) {
+      const updatedCurrentNote: noteType = {
+        ...currentNote,
+        note: textAreaValue,
+      };
+      modifyNotes.updateNote(updatedCurrentNote);
+      console.log(notes.length);
+    }
   };
 
   return (
@@ -30,7 +44,7 @@ const NoteDisplaySec = () => {
 
           {/* Save and commit changes */}
           <div className="flex gap-2 justify-start p-3 border-t border-gray-300 border-solid">
-            <Btn value="Save note" type="primary" />
+            <Btn value="Save note" type="primary" handleClick={handleSave} />
             <Btn value="Discard" type="secondary" />
           </div>
         </div>
