@@ -12,7 +12,7 @@ type NotesContextType = {
   notes: noteType[];
   modifyNotes: {
     addNote: (note: noteType) => void;
-    removeNote: (index: number) => void;
+    removeNote: (note: noteType) => void;
     updateNote: (updatedNote: noteType) => void;
   };
 };
@@ -41,8 +41,10 @@ const NotesContextProvider = ({ children }: { children: ReactNode }) => {
       const newNoteList = [...noteList, newNote];
       setNoteList(newNoteList);
     },
-    removeNote(idx: number) {
-      const newNoteList = noteList.filter((_, index) => idx !== index);
+    removeNote(targetedNote: noteType) {
+      const newNoteList = noteList.filter(
+        (note) => note.id !== targetedNote.id
+      );
       setNoteList(newNoteList);
     },
     updateNote(updatedNote: noteType) {

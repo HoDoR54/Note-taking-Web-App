@@ -22,7 +22,7 @@ const CurrentNoteContextProvider = ({ children }: { children: ReactNode }) => {
       return {
         ...parsed,
         dateTime: new Date(parsed.dateTime),
-        updatedAt: new Date(parsed.updatedAt),
+        updatedAt: parsed.updatedAt ? new Date(parsed.dateTime) : undefined,
       };
     }
     return undefined;
